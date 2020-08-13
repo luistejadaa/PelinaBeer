@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		89347C2324E606420053AC1E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C2224E606420053AC1E /* AppDelegate.swift */; };
 		89347C2524E606420053AC1E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C2424E606420053AC1E /* SceneDelegate.swift */; };
-		89347C2724E606420053AC1E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C2624E606420053AC1E /* ViewController.swift */; };
-		89347C2A24E606420053AC1E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89347C2824E606420053AC1E /* Main.storyboard */; };
+		89347C2724E606420053AC1E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C2624E606420053AC1E /* MainViewController.swift */; };
 		89347C2D24E606420053AC1E /* PelinaBeer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 89347C2B24E606420053AC1E /* PelinaBeer.xcdatamodeld */; };
 		89347C2F24E606430053AC1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89347C2E24E606430053AC1E /* Assets.xcassets */; };
 		89347C3224E606430053AC1E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89347C3024E606430053AC1E /* LaunchScreen.storyboard */; };
@@ -31,8 +30,7 @@
 		89347C1F24E606420053AC1E /* PelinaBeer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PelinaBeer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89347C2224E606420053AC1E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89347C2424E606420053AC1E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		89347C2624E606420053AC1E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		89347C2924E606420053AC1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		89347C2624E606420053AC1E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		89347C2C24E606420053AC1E /* PelinaBeer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PelinaBeer.xcdatamodel; sourceTree = "<group>"; };
 		89347C2E24E606430053AC1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89347C3124E606430053AC1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -83,8 +81,7 @@
 			children = (
 				89347C2224E606420053AC1E /* AppDelegate.swift */,
 				89347C2424E606420053AC1E /* SceneDelegate.swift */,
-				89347C2624E606420053AC1E /* ViewController.swift */,
-				89347C2824E606420053AC1E /* Main.storyboard */,
+				89347C2624E606420053AC1E /* MainViewController.swift */,
 				89347C2E24E606430053AC1E /* Assets.xcassets */,
 				89347C3024E606430053AC1E /* LaunchScreen.storyboard */,
 				89347C3324E606430053AC1E /* Info.plist */,
@@ -185,7 +182,6 @@
 			files = (
 				89347C3224E606430053AC1E /* LaunchScreen.storyboard in Resources */,
 				89347C2F24E606430053AC1E /* Assets.xcassets in Resources */,
-				89347C2A24E606420053AC1E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89347C2724E606420053AC1E /* ViewController.swift in Sources */,
+				89347C2724E606420053AC1E /* MainViewController.swift in Sources */,
 				89347C2324E606420053AC1E /* AppDelegate.swift in Sources */,
 				89347C2D24E606420053AC1E /* PelinaBeer.xcdatamodeld in Sources */,
 				89347C2524E606420053AC1E /* SceneDelegate.swift in Sources */,
@@ -229,14 +225,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		89347C2824E606420053AC1E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				89347C2924E606420053AC1E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		89347C3024E606430053AC1E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
