@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,6 +26,8 @@
 		89347C6024E6CD1F0053AC1E /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5F24E6CD1F0053AC1E /* FilterViewController.swift */; };
 		89347C6224E6E9220053AC1E /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6124E6E9220053AC1E /* SubtitleTableViewCell.swift */; };
 		89347C6424E6E9A00053AC1E /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6324E6E9A00053AC1E /* UIColor.swift */; };
+		89347C6724E6EB9D0053AC1E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 89347C6624E6EB9D0053AC1E /* Alamofire */; };
+		89347C6A24E6EEE70053AC1E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6924E6EEE70053AC1E /* API.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,7 @@
 		89347C5F24E6CD1F0053AC1E /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		89347C6124E6E9220053AC1E /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		89347C6324E6E9A00053AC1E /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		89347C6924E6EEE70053AC1E /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89347C6724E6EB9D0053AC1E /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +107,7 @@
 		89347C2124E606420053AC1E /* PelinaBeer */ = {
 			isa = PBXGroup;
 			children = (
+				89347C6824E6EE900053AC1E /* API */,
 				89347C5424E61E780053AC1E /* Extensions */,
 				89347C4924E60B100053AC1E /* Controllers */,
 				89347C4824E60B060053AC1E /* Views */,
@@ -167,6 +172,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		89347C6824E6EE900053AC1E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				89347C6924E6EEE70053AC1E /* API.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -183,6 +196,9 @@
 			dependencies = (
 			);
 			name = PelinaBeer;
+			packageProductDependencies = (
+				89347C6624E6EB9D0053AC1E /* Alamofire */,
+			);
 			productName = PelinaBeer;
 			productReference = 89347C1F24E606420053AC1E /* PelinaBeer.app */;
 			productType = "com.apple.product-type.application";
@@ -233,6 +249,9 @@
 				Base,
 			);
 			mainGroup = 89347C1624E606420053AC1E;
+			packageReferences = (
+				89347C6524E6EB9D0053AC1E /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 89347C2024E606420053AC1E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -282,6 +301,7 @@
 				89347C2D24E606420053AC1E /* PelinaBeer.xcdatamodeld in Sources */,
 				89347C6224E6E9220053AC1E /* SubtitleTableViewCell.swift in Sources */,
 				89347C2524E606420053AC1E /* SceneDelegate.swift in Sources */,
+				89347C6A24E6EEE70053AC1E /* API.swift in Sources */,
 				89347C4B24E60B5A0053AC1E /* Movie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -543,6 +563,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		89347C6524E6EB9D0053AC1E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		89347C6624E6EB9D0053AC1E /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 89347C6524E6EB9D0053AC1E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		89347C2B24E606420053AC1E /* PelinaBeer.xcdatamodeld */ = {

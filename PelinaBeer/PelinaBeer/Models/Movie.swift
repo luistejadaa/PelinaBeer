@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct Movie {
+struct Movie : Codable {
     
     let name : String!
     let synopsis : String!
@@ -17,4 +17,10 @@ struct Movie {
     let calification : Double!
     let publishDate : Double!
     
+    static func discoverMovies(completion: @escaping ([Movie]) -> Void) {
+        
+        API.shared.get(path: "discovery", queryItems: []) { (response: Result<[Movie], Error>) in
+            
+        }
+    }
 }
