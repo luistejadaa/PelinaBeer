@@ -29,7 +29,7 @@ class RootTabController: UITabBarController {
         favoriteItem.image = #imageLiteral(resourceName: "favorites_icon")
         favoriteItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         
-        tabBar.tintColor = UIColor(named: "mainColor")
+        tabBar.tintColor = .mainColor
         tabBar.unselectedItemTintColor = .gray
     }
     

@@ -20,6 +20,12 @@
 		89347C5324E616B50053AC1E /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5224E616B50053AC1E /* FavoritesViewController.swift */; };
 		89347C5624E61EBF0053AC1E /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5524E61EBF0053AC1E /* UIViewController.swift */; };
 		89347C5824E6203E0053AC1E /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5724E6203E0053AC1E /* MovieDetailViewController.swift */; };
+		89347C5A24E63B9E0053AC1E /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5924E63B9E0053AC1E /* FilterView.swift */; };
+		89347C5C24E63C690053AC1E /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5B24E63C690053AC1E /* Filter.swift */; };
+		89347C5E24E646430053AC1E /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5D24E646430053AC1E /* UIView.swift */; };
+		89347C6024E6CD1F0053AC1E /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5F24E6CD1F0053AC1E /* FilterViewController.swift */; };
+		89347C6224E6E9220053AC1E /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6124E6E9220053AC1E /* SubtitleTableViewCell.swift */; };
+		89347C6424E6E9A00053AC1E /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6324E6E9A00053AC1E /* UIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +56,12 @@
 		89347C5224E616B50053AC1E /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		89347C5524E61EBF0053AC1E /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		89347C5724E6203E0053AC1E /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
+		89347C5924E63B9E0053AC1E /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		89347C5B24E63C690053AC1E /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		89347C5D24E646430053AC1E /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		89347C5F24E6CD1F0053AC1E /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		89347C6124E6E9220053AC1E /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
+		89347C6324E6E9A00053AC1E /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +130,7 @@
 				89347C2B24E606420053AC1E /* PelinaBeer.xcdatamodeld */,
 				89347C4A24E60B5A0053AC1E /* Movie.swift */,
 				89347C4C24E60CA10053AC1E /* User.swift */,
+				89347C5B24E63C690053AC1E /* Filter.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -126,6 +139,8 @@
 			isa = PBXGroup;
 			children = (
 				89347C3024E606430053AC1E /* LaunchScreen.storyboard */,
+				89347C5924E63B9E0053AC1E /* FilterView.swift */,
+				89347C6124E6E9220053AC1E /* SubtitleTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -137,6 +152,7 @@
 				89347C5024E615A30053AC1E /* RootTabController.swift */,
 				89347C5224E616B50053AC1E /* FavoritesViewController.swift */,
 				89347C5724E6203E0053AC1E /* MovieDetailViewController.swift */,
+				89347C5F24E6CD1F0053AC1E /* FilterViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -145,6 +161,8 @@
 			isa = PBXGroup;
 			children = (
 				89347C5524E61EBF0053AC1E /* UIViewController.swift */,
+				89347C5D24E646430053AC1E /* UIView.swift */,
+				89347C6324E6E9A00053AC1E /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -249,7 +267,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89347C6024E6CD1F0053AC1E /* FilterViewController.swift in Sources */,
+				89347C5E24E646430053AC1E /* UIView.swift in Sources */,
+				89347C5A24E63B9E0053AC1E /* FilterView.swift in Sources */,
+				89347C5C24E63C690053AC1E /* Filter.swift in Sources */,
 				89347C2724E606420053AC1E /* MainViewController.swift in Sources */,
+				89347C6424E6E9A00053AC1E /* UIColor.swift in Sources */,
 				89347C5124E615A30053AC1E /* RootTabController.swift in Sources */,
 				89347C5624E61EBF0053AC1E /* UIViewController.swift in Sources */,
 				89347C5324E616B50053AC1E /* FavoritesViewController.swift in Sources */,
@@ -257,6 +280,7 @@
 				89347C4D24E60CA10053AC1E /* User.swift in Sources */,
 				89347C5824E6203E0053AC1E /* MovieDetailViewController.swift in Sources */,
 				89347C2D24E606420053AC1E /* PelinaBeer.xcdatamodeld in Sources */,
+				89347C6224E6E9220053AC1E /* SubtitleTableViewCell.swift in Sources */,
 				89347C2524E606420053AC1E /* SceneDelegate.swift in Sources */,
 				89347C4B24E60B5A0053AC1E /* Movie.swift in Sources */,
 			);
@@ -413,6 +437,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LPWYF22VV5;
 				INFOPLIST_FILE = PelinaBeer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -431,6 +456,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LPWYF22VV5;
 				INFOPLIST_FILE = PelinaBeer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
