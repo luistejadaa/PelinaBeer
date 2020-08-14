@@ -14,6 +14,12 @@
 		89347C2F24E606430053AC1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89347C2E24E606430053AC1E /* Assets.xcassets */; };
 		89347C3224E606430053AC1E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89347C3024E606430053AC1E /* LaunchScreen.storyboard */; };
 		89347C3D24E606430053AC1E /* PelinaBeerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C3C24E606430053AC1E /* PelinaBeerTests.swift */; };
+		89347C4B24E60B5A0053AC1E /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C4A24E60B5A0053AC1E /* Movie.swift */; };
+		89347C4D24E60CA10053AC1E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C4C24E60CA10053AC1E /* User.swift */; };
+		89347C5124E615A30053AC1E /* RootTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5024E615A30053AC1E /* RootTabController.swift */; };
+		89347C5324E616B50053AC1E /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5224E616B50053AC1E /* FavoritesViewController.swift */; };
+		89347C5624E61EBF0053AC1E /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5524E61EBF0053AC1E /* UIViewController.swift */; };
+		89347C5824E6203E0053AC1E /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5724E6203E0053AC1E /* MovieDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +44,12 @@
 		89347C3824E606430053AC1E /* PelinaBeerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PelinaBeerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		89347C3C24E606430053AC1E /* PelinaBeerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PelinaBeerTests.swift; sourceTree = "<group>"; };
 		89347C3E24E606430053AC1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89347C4A24E60B5A0053AC1E /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		89347C4C24E60CA10053AC1E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		89347C5024E615A30053AC1E /* RootTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabController.swift; sourceTree = "<group>"; };
+		89347C5224E616B50053AC1E /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		89347C5524E61EBF0053AC1E /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		89347C5724E6203E0053AC1E /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,13 +91,14 @@
 		89347C2124E606420053AC1E /* PelinaBeer */ = {
 			isa = PBXGroup;
 			children = (
+				89347C5424E61E780053AC1E /* Extensions */,
+				89347C4924E60B100053AC1E /* Controllers */,
+				89347C4824E60B060053AC1E /* Views */,
+				89347C4724E60AFE0053AC1E /* Models */,
 				89347C2224E606420053AC1E /* AppDelegate.swift */,
 				89347C2424E606420053AC1E /* SceneDelegate.swift */,
-				89347C2624E606420053AC1E /* MainViewController.swift */,
 				89347C2E24E606430053AC1E /* Assets.xcassets */,
-				89347C3024E606430053AC1E /* LaunchScreen.storyboard */,
 				89347C3324E606430053AC1E /* Info.plist */,
-				89347C2B24E606420053AC1E /* PelinaBeer.xcdatamodeld */,
 			);
 			path = PelinaBeer;
 			sourceTree = "<group>";
@@ -97,6 +110,43 @@
 				89347C3E24E606430053AC1E /* Info.plist */,
 			);
 			path = PelinaBeerTests;
+			sourceTree = "<group>";
+		};
+		89347C4724E60AFE0053AC1E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				89347C2B24E606420053AC1E /* PelinaBeer.xcdatamodeld */,
+				89347C4A24E60B5A0053AC1E /* Movie.swift */,
+				89347C4C24E60CA10053AC1E /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		89347C4824E60B060053AC1E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				89347C3024E606430053AC1E /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		89347C4924E60B100053AC1E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				89347C2624E606420053AC1E /* MainViewController.swift */,
+				89347C5024E615A30053AC1E /* RootTabController.swift */,
+				89347C5224E616B50053AC1E /* FavoritesViewController.swift */,
+				89347C5724E6203E0053AC1E /* MovieDetailViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		89347C5424E61E780053AC1E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				89347C5524E61EBF0053AC1E /* UIViewController.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,9 +250,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				89347C2724E606420053AC1E /* MainViewController.swift in Sources */,
+				89347C5124E615A30053AC1E /* RootTabController.swift in Sources */,
+				89347C5624E61EBF0053AC1E /* UIViewController.swift in Sources */,
+				89347C5324E616B50053AC1E /* FavoritesViewController.swift in Sources */,
 				89347C2324E606420053AC1E /* AppDelegate.swift in Sources */,
+				89347C4D24E60CA10053AC1E /* User.swift in Sources */,
+				89347C5824E6203E0053AC1E /* MovieDetailViewController.swift in Sources */,
 				89347C2D24E606420053AC1E /* PelinaBeer.xcdatamodeld in Sources */,
 				89347C2524E606420053AC1E /* SceneDelegate.swift in Sources */,
+				89347C4B24E60B5A0053AC1E /* Movie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

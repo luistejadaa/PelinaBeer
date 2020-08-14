@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //Creamos una ventana con el ancho y el largo de la pantalla principal, en este caso el singleton main, ya que eliminé el Storyboard porque prefiero trabajar todo con código sin utilizar el interface builder de xcode.
         let window = UIWindow(windowScene: winScene)
-        window.rootViewController = MainViewController()
+        window.rootViewController = RootTabController()
         window.makeKeyAndVisible()
         self.window = window
     }
