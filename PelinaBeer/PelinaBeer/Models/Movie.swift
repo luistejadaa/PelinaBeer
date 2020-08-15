@@ -11,16 +11,32 @@ import Foundation
 
 struct Movie : Codable {
     
-    let name : String!
-    let synopsis : String!
-    let imageURL : String!
-    let calification : Double!
-    let publishDate : Double!
+        let popularity: Double?
+        let vote_count: Int?
+        let video: Bool?
+        let poster_path: String?
+        let id: Int?
+        let adult: Bool?
+        let backdrop_path: String?
+        let original_language: String?
+        let original_title: String?
+        let genre_ids: [Int]?
+        let title: String?
+        let vote_average: Double?
+        let overview: String?
+        let release_date: String?
     
-    static func discoverMovies(completion: @escaping ([Movie]) -> Void) {
+    static func discoverMovies(completion: @escaping (Result<APIResponse<Movie>, Error>) -> Void) {
         
-        API.shared.get(path: "discovery", queryItems: []) { (response: Result<[Movie], Error>) in
+        API.shared.get(path: "discover/movie", queryItems: []) { (response: Result<APIResponse<Movie>, Error>) in
             
+            switch response {
+                
+            case .success(let movies):
+                completion(.success(movies))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
 }

@@ -28,6 +28,8 @@
 		89347C6424E6E9A00053AC1E /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6324E6E9A00053AC1E /* UIColor.swift */; };
 		89347C6724E6EB9D0053AC1E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 89347C6624E6EB9D0053AC1E /* Alamofire */; };
 		89347C6A24E6EEE70053AC1E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6924E6EEE70053AC1E /* API.swift */; };
+		89347C6C24E719060053AC1E /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6B24E719060053AC1E /* APIResponse.swift */; };
+		89347C6E24E772800053AC1E /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6D24E772800053AC1E /* MovieCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		89347C6124E6E9220053AC1E /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		89347C6324E6E9A00053AC1E /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		89347C6924E6EEE70053AC1E /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		89347C6B24E719060053AC1E /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
+		89347C6D24E772800053AC1E /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +150,7 @@
 				89347C3024E606430053AC1E /* LaunchScreen.storyboard */,
 				89347C5924E63B9E0053AC1E /* FilterView.swift */,
 				89347C6124E6E9220053AC1E /* SubtitleTableViewCell.swift */,
+				89347C6D24E772800053AC1E /* MovieCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 		89347C6824E6EE900053AC1E /* API */ = {
 			isa = PBXGroup;
 			children = (
+				89347C6B24E719060053AC1E /* APIResponse.swift */,
 				89347C6924E6EEE70053AC1E /* API.swift */,
 			);
 			path = API;
@@ -295,8 +301,10 @@
 				89347C5124E615A30053AC1E /* RootTabController.swift in Sources */,
 				89347C5624E61EBF0053AC1E /* UIViewController.swift in Sources */,
 				89347C5324E616B50053AC1E /* FavoritesViewController.swift in Sources */,
+				89347C6C24E719060053AC1E /* APIResponse.swift in Sources */,
 				89347C2324E606420053AC1E /* AppDelegate.swift in Sources */,
 				89347C4D24E60CA10053AC1E /* User.swift in Sources */,
+				89347C6E24E772800053AC1E /* MovieCollectionViewCell.swift in Sources */,
 				89347C5824E6203E0053AC1E /* MovieDetailViewController.swift in Sources */,
 				89347C2D24E606420053AC1E /* PelinaBeer.xcdatamodeld in Sources */,
 				89347C6224E6E9220053AC1E /* SubtitleTableViewCell.swift in Sources */,

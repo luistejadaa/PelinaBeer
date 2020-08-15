@@ -28,25 +28,29 @@ class API {
         
         urlComponents = URLComponents()
         urlComponents.scheme = scheme
-        urlComponents.host = "\(base)/\(apiVersion)"
+        urlComponents.host = base
     }
     
-    func get<T>(path: String, queryItems : [URLQueryItem], completion: @escaping (Result<T, Error>) -> Void) where T : Decodable {
+    func get<T>(path: String, queryItems : [URLQueryItem], completion: @escaping (Result<APIResponse<T>, Error>) -> Void) where T : Codable {
             
-        urlComponents.queryItems?.removeAll()
+                print(path)
+        
         urlComponents.queryItems = queryItems
+        urlComponents.path = "/\(apiVersion)/\(path)"
         urlComponents.queryItems?.append(URLQueryItem(name: "api_key", value: apiKey))
         
-        AF.request(urlComponents.url!) { urlRequest in
-            
+        print(urlComponents.url?.description)
+        AF.request(urlComponents.url!, method: .get) { urlRequest in
+
             urlRequest.timeoutInterval = 30
         }
         .validate(statusCode: 200...300)
         .validate(contentType: ["application/json"])
-        .responseDecodable(of: T.self) { response in
+        .responseDecodable(of: APIResponse<T>.self) { response in
         
             if let error = response.error {
                 
+                print("Error")
                 completion(.failure(error))
                 
             } else {

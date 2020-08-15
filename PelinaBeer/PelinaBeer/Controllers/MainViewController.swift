@@ -48,6 +48,10 @@ class MainViewController: UIViewController {
         addIRightItem(image: #imageLiteral(resourceName: "sort_icon"), action: #selector(showFilter))
         addIRightItem(image: #imageLiteral(resourceName: "filterFill_icon"), action: #selector(showFilter))
         
+        Movie.discoverMovies { (result) in
+            
+        }
+        
     }
     
     @objc func showFilter() {
@@ -65,7 +69,7 @@ extension MainViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        present(MovieDetailViewController(movie: Movie(name: "Título", synopsis: "Sypnoasdnsaodnoasdaosdnaos", imageURL: nil, calification: nil, publishDate: nil)), animated: true, completion: nil)
+        
     }
 }
 
