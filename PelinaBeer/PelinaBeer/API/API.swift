@@ -6,8 +6,9 @@
 //  Copyright © 2020 Luis Tejada. All rights reserved.
 //
 
-import Foundation
+import UIKit.UIImage
 import Alamofire
+import AlamofireImage
 
 class API {
     
@@ -16,6 +17,8 @@ class API {
         let instance = API()
         return instance
     }()
+    
+    let imageURL = "https://image.tmdb.org/t/p/"
     
     let scheme = "https"
     let base = "api.themoviedb.org"
@@ -38,8 +41,6 @@ class API {
         urlComponents.queryItems = queryItems
         urlComponents.path = "/\(apiVersion)/\(path)"
         urlComponents.queryItems?.append(URLQueryItem(name: "api_key", value: apiKey))
-        
-        print(urlComponents.url?.description)
         AF.request(urlComponents.url!, method: .get) { urlRequest in
 
             urlRequest.timeoutInterval = 30
@@ -64,6 +65,14 @@ class API {
                     completion(.success(response.value!))
                 }
             }
+        }
+    }
+    
+    func getImage(imagePath : String, completion: @escaping (UIImage) -> Void) {
+        
+        AF.request("\(imageURL)\(imagePath)", method: .get).responseImage { (response) in
+            
+            completion(response.value ?? UIImage(named: "imageNotFound")!)
         }
     }
 }

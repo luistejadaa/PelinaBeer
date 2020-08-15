@@ -11,8 +11,12 @@ import UIKit
 class MainViewController: UIViewController {
     
     
+    
+    var movies : [Movie]?
+    var filteredMovies : [Movie]?
+    
     let filterView : FilterView = {
-       
+        
         let f = FilterView(frame: .zero)
         f.translatesAutoresizingMaskIntoConstraints = false
         return f
@@ -22,7 +26,7 @@ class MainViewController: UIViewController {
         
         let c = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         c.translatesAutoresizingMaskIntoConstraints = false
-        c.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "movieCell")
+        c.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: "movieCell")
         c.backgroundColor = .white
         return c
     }()
@@ -31,9 +35,9 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
-    
+        
         configureLargueTitleWith(text: "Pelina Beer")
-            
+        
         moviesCollectionView.delegate = self
         moviesCollectionView.dataSource = self
         
@@ -48,10 +52,35 @@ class MainViewController: UIViewController {
         addIRightItem(image: #imageLiteral(resourceName: "sort_icon"), action: #selector(showFilter))
         addIRightItem(image: #imageLiteral(resourceName: "filterFill_icon"), action: #selector(showFilter))
         
-        Movie.discoverMovies { (result) in
-            
-        }
+        discoverMovies()
         
+        
+    }
+    
+    func discoverMovies() {
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            
+            Movie.discoverMovies { (response) in
+                
+                switch response {
+                    
+                case .success(let result):
+                    
+                    self.movies = result.results
+                    self.moviesCollectionView.reloadData()
+                    
+                case .failure(let error):
+                    
+                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+                    DispatchQueue.main.async {
+                        
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
     }
     
     @objc func showFilter() {
@@ -80,15 +109,39 @@ extension MainViewController : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        movies?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath)
-        cell.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 0.1026628521)
-        cell.layer.cornerRadius = 8
-        cell.addSimpleShadow()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
+        
+        if self.movies![indexPath.row].thumbailImage == nil {
+            
+            cell.activityIindicator.startAnimating()
+            
+            DispatchQueue(label: "downloadThumbnail").async {
+                
+                self.movies![indexPath.row].getThumnailImage {
+                    
+                    self.setImageToCell(cell: cell, indexPath: indexPath)
+                }
+            }
+            
+        } else {
+            
+            setImageToCell(cell: cell, indexPath: indexPath)
+        }
+        
         return cell
+    }
+    
+    func setImageToCell(cell: MovieCollectionViewCell, indexPath: IndexPath) {
+        
+        DispatchQueue.main.async {
+            
+            cell.movieImageView.image = self.movies![indexPath.row].thumbailImage
+            cell.activityIindicator.stopAnimating()
+        }
     }
 }
 
