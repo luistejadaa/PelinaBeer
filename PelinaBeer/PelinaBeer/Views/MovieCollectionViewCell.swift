@@ -12,7 +12,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     
     
-    let movieImageView: UIImageView = {
+    @objc dynamic var movieImageView: UIImageView = {
         let i = UIImageView(frame: .zero)
         i.translatesAutoresizingMaskIntoConstraints = false
         i.contentMode = .scaleAspectFill
@@ -44,6 +44,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     func setup() {
         
         backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 0.1026628521)
@@ -61,5 +62,13 @@ class MovieCollectionViewCell: UICollectionViewCell {
         
         activityIindicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         activityIindicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        movieImageView.addObserver(self, forKeyPath: "image", options: .new, context: nil)
+        
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        activityIindicator.stopAnimating()
     }
 }

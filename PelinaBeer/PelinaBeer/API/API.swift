@@ -71,7 +71,6 @@ class API {
     func getImage(imagePath : String, completion: @escaping (UIImage) -> Void) {
         
         AF.request("\(imageURL)\(imagePath)", method: .get).responseImage { (response) in
-            
             completion(response.value ?? UIImage(named: "imageNotFound")!)
         }
     }

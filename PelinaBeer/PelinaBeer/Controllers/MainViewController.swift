@@ -12,8 +12,11 @@ class MainViewController: UIViewController {
     
     
     
-    var movies : [Movie]?
-    var filteredMovies : [Movie]?
+    var movieDiscoverFilter : MovieDiscoverFilter!
+    var movies = [Movie]()
+    var filteredMovies = [Movie]()
+    var totalPages : Int!
+    var totalResults : Int!
     
     let filterView : FilterView = {
         
@@ -22,24 +25,41 @@ class MainViewController: UIViewController {
         return f
     }()
     
+    let fetchActivityIindicator: UIActivityIndicatorView = {
+        let a = UIActivityIndicatorView(style: .medium)
+        a.translatesAutoresizingMaskIntoConstraints = false
+        a.color = .mainColor
+        return a
+    }()
+    
     let moviesCollectionView: UICollectionView = {
         
         let c = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        (c.collectionViewLayout as! UICollectionViewFlowLayout).footerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 30)
         c.translatesAutoresizingMaskIntoConstraints = false
         c.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: "movieCell")
         c.backgroundColor = .white
+        c.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footerCell")
         return c
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        movieDiscoverFilter = MovieDiscoverFilter(pageNumber: 0, rating: nil, year: nil, genres: nil)
+        totalPages = 0
+        totalResults = 0
         view.backgroundColor = .white
         
         configureLargueTitleWith(text: "Pelina Beer")
         
         moviesCollectionView.delegate = self
         moviesCollectionView.dataSource = self
+        moviesCollectionView.prefetchDataSource = self
+        moviesCollectionView.refreshControl = UIRefreshControl()
+        moviesCollectionView.refreshControl?.tintColor = .mainColor
+        moviesCollectionView.refreshControl?.addTarget(self, action: #selector(discoverMovies), for: .valueChanged)
+        
         
         view.addSubview(moviesCollectionView)
         view.addSubview(filterView)
@@ -52,26 +72,49 @@ class MainViewController: UIViewController {
         addIRightItem(image: #imageLiteral(resourceName: "sort_icon"), action: #selector(showFilter))
         addIRightItem(image: #imageLiteral(resourceName: "filterFill_icon"), action: #selector(showFilter))
         
-        discoverMovies()
-        
-        
     }
     
-    func discoverMovies() {
+    @objc func discoverMovies() {
         
-        DispatchQueue.global(qos: .userInteractive).async {
+        DispatchQueue.main.async {
+            self.fetchActivityIindicator.startAnimating()
+            if self.moviesCollectionView.refreshControl!.isRefreshing {
+                
+                self.movies.removeAll()
+            }
+        }
+        
+        DispatchQueue.global(qos: .background).async {
             
-            Movie.discoverMovies { (response) in
+            self.movieDiscoverFilter.pageNumber += 1
+            Movie.discoverMovies(filter: self.movieDiscoverFilter) { (response) in
+                
+                DispatchQueue.main.async {
+                    self.fetchActivityIindicator.stopAnimating()
+                    self.moviesCollectionView.refreshControl?.endRefreshing()
+                }
                 
                 switch response {
-                    
                 case .success(let result):
                     
-                    self.movies = result.results
+                    self.totalPages = result.total_pages
+                    self.totalResults = result.total_results
+                    if let movies = result.results {
+                        
+                        //Esto es para generar el efecto de que se cargan una a una
+                        for m in movies {
+                            
+                            self.movies.append(m)
+                        }
+                    }
                     self.moviesCollectionView.reloadData()
                     
                 case .failure(let error):
                     
+                    if self.movieDiscoverFilter.pageNumber > 1 {
+                        
+                        self.movieDiscoverFilter.pageNumber -= 1
+                    }
                     let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
                     DispatchQueue.main.async {
@@ -98,62 +141,89 @@ extension MainViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        present(MovieDetailViewController(movie: self.movies[indexPath.row]), animated: true, completion: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         
-    }
-}
-
-extension MainViewController : UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        movies?.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
-        
-        if self.movies![indexPath.row].thumbailImage == nil {
+        if (elementKind == UICollectionView.elementKindSectionFooter) {
             
-            cell.activityIindicator.startAnimating()
-            
-            DispatchQueue(label: "downloadThumbnail").async {
+            DispatchQueue.global(qos: .userInitiated).async {
                 
-                self.movies![indexPath.row].getThumnailImage {
+                self.discoverMovies()
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if (kind == UICollectionView.elementKindSectionFooter) {
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerCell", for: indexPath)
+            
+            footerView.addSubview(fetchActivityIindicator)
+            fetchActivityIindicator.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
+            fetchActivityIindicator.centerYAnchor.constraint(equalTo: footerView.centerYAnchor).isActive = true
+            return footerView
+            
+        }
+        
+        fatalError()
+    }
+    
+}
+    
+    extension MainViewController : UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
+        
+        func numberOfSections(in collectionView: UICollectionView) -> Int {
+            1
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            movies.count
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+            
+            for indexPath in indexPaths {
+                
+                self.movies[indexPath.row].getThumnailImage(completion: nil)
+            }
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
+            
+            if self.movies[indexPath.row].thumbailImage == nil {
+                
+                cell.activityIindicator.startAnimating()
+                self.movies[indexPath.row].getThumnailImage {
                     
-                    self.setImageToCell(cell: cell, indexPath: indexPath)
+                    self.setThumbnailToCell(cell: cell, indexPath: indexPath)
                 }
+            } else {
+                
+                setThumbnailToCell(cell: cell, indexPath: indexPath)
             }
             
-        } else {
-            
-            setImageToCell(cell: cell, indexPath: indexPath)
+            return cell
         }
         
-        return cell
-    }
-    
-    func setImageToCell(cell: MovieCollectionViewCell, indexPath: IndexPath) {
-        
-        DispatchQueue.main.async {
+        func setThumbnailToCell(cell : MovieCollectionViewCell, indexPath: IndexPath) {
             
-            cell.movieImageView.image = self.movies![indexPath.row].thumbailImage
-            cell.activityIindicator.stopAnimating()
+            cell.movieImageView.image = self.movies[indexPath.row].thumbailImage
         }
     }
-}
-
-extension MainViewController : UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    extension MainViewController : UICollectionViewDelegateFlowLayout {
         
-        let size = view.frame.width / 2
-        return CGSize(width: size - 20, height: 250)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 8, left: 13, bottom: 8, right: 13)
-    }
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            
+            let size = view.frame.width / 2
+            return CGSize(width: size - 20, height: 250)
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+            UIEdgeInsets(top: 8, left: 13, bottom: 8, right: 13)
+        }
 }

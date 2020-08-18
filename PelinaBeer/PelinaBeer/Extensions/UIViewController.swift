@@ -11,14 +11,11 @@ import UIKit.UIViewController
 extension UIViewController {
     
     internal func configureLargueTitleWith(text: String!) {
-        
-        navigationItem.searchController = UISearchController(searchResultsController: nil)
-        navigationItem.searchController?.searchBar.placeholder = "Buscar película"
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = .mainColor
         navigationItem.title = text
-        let attr = [NSAttributedString.Key.foregroundColor : UIColor.mainColor]
+        let attr = [NSAttributedString.Key.foregroundColor : UIColor.mainColor as Any]
         navigationController?.navigationBar.titleTextAttributes = attr
         navigationController?.navigationBar.largeTitleTextAttributes = attr
         navigationItem.rightBarButtonItems = [UIBarButtonItem]()
