@@ -170,10 +170,14 @@ extension FilterViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.row == 0 {
-            self.present(UINavigationController(rootViewController: genresVC), animated: true, completion: nil)
-        }
         
+        switch indexPath.row {
+        case 0: self.present(UINavigationController(rootViewController: genresVC), animated: true, completion: nil)
+        case 1: self.selectYear()
+        case 2: break
+        default: break
+            
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -190,6 +194,50 @@ extension FilterViewController : UITableViewDelegate {
             
             isFirstAppear = false
         }
+    }
+    
+    func selectYear() {
+        
+        let message = "\n\n\n\n\n\n"
+        let alert = UIAlertController(title: "Select a year", message: message, preferredStyle: .alert)
+         
+        let picker = UIPickerView(frame: .zero)
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.delegate = self
+        alert.view.addSubview(picker)
+        
+        picker.widthAnchor.constraint(equalToConstant: view.frame.width / 2.5).isActive = true
+        picker.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        picker.centerYAnchor.constraint(equalTo: alert.view.centerYAnchor).isActive = true
+        picker.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor).isActive = true
+        
+        
+        alert.addAction(UIAlertAction(title: "Select", style: .default, handler: {
+         (alert: UIAlertAction!) -> Void in
+            
+            let selected = picker.selectedRow(inComponent: 0)
+            self.filter.year = selected + 1960
+            self.filterOptionstableView.reloadData()
+        }))
+        alert.addAction( UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension FilterViewController : UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        return Calendar.current.component(.year, from: Date()) - 1959
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        (1960 + row).description
     }
 }
 
