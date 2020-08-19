@@ -34,20 +34,10 @@ class API {
         urlComponents.host = base
     }
     
-    func get<T>(path: String, queryItems : [URLQueryItem], completion: @escaping (Result<APIResponse<T>, Error>) -> Void) where T : Codable {
+    func getWithPagination<T>(path: String, queryItems : [URLQueryItem], completion: @escaping (Result<APIResponse<T>, Error>) -> Void) where T : Codable {
             
-                print(path)
-        
-        urlComponents.queryItems = queryItems
-        urlComponents.path = "/\(apiVersion)/\(path)"
-        urlComponents.queryItems?.append(URLQueryItem(name: "api_key", value: apiKey))
-        AF.request(urlComponents.url!, method: .get) { urlRequest in
-
-            urlRequest.timeoutInterval = 30
-        }
-        .validate(statusCode: 200...300)
-        .validate(contentType: ["application/json"])
-        .responseDecodable(of: APIResponse<T>.self) { response in
+        makeResponse(path: path, queryItems: queryItems)
+            .responseDecodable(of: APIResponse<T>.self) { response in
         
             if let error = response.error {
                 
@@ -66,6 +56,42 @@ class API {
                 }
             }
         }
+    }
+    
+    func getWithoutPagination<T>(path: String, queryItems: [URLQueryItem], completion: @escaping (Result<T, Error>) -> Void) where T : Codable {
+        
+        makeResponse(path: path, queryItems: queryItems)
+            .responseDecodable(of: T.self) { response in
+        
+            if let error = response.error {
+                
+                completion(.failure(error))
+                
+            } else {
+             
+                if(response.value == nil) {
+                    
+                    completion(.failure(NSError(domain: "Value is empty", code: -1, userInfo: nil)))
+                }
+                else {
+                    
+                    completion(.success(response.value!))
+                }
+            }
+        }
+    }
+    
+    func makeResponse(path: String, queryItems: [URLQueryItem]) -> DataRequest {
+        
+         urlComponents.queryItems = queryItems
+               urlComponents.path = "/\(apiVersion)/\(path)"
+               urlComponents.queryItems?.append(URLQueryItem(name: "api_key", value: apiKey))
+               return AF.request(urlComponents.url!, method: .get) { urlRequest in
+
+                   urlRequest.timeoutInterval = 30
+               }
+               .validate(statusCode: 200...300)
+               .validate(contentType: ["application/json"])
     }
     
     func getImage(imagePath : String, completion: @escaping (UIImage) -> Void) {

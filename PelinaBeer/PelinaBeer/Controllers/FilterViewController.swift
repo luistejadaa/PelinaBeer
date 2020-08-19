@@ -14,8 +14,45 @@ class FilterViewController: UIViewController {
     override var modalPresentationStyle: UIModalPresentationStyle {get { .overFullScreen} set { self.modalPresentationStyle = newValue }}
     override var modalTransitionStyle: UIModalTransitionStyle { get {.crossDissolve} set {self.modalTransitionStyle = newValue}}
     
-    fileprivate let filterOptions = ["Categoría", "Rating"]
+    fileprivate let filterOptions = ["Genres", "Year", "Rating"]
     fileprivate var isFirstAppear : Bool!
+    
+    var filter : MovieDiscoverFilter!
+    var delegate : FilterViewControllerDelegate?
+    var genresVC : GenresTableViewController!
+    
+    init(filter: MovieDiscoverFilter) {
+        super.init(nibName: nil, bundle: nil)
+        self.filter = filter
+        self.genresVC = GenresTableViewController()
+        self.genresVC.delegate = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    let applyButton : UIButton = {
+        
+        let b = UIButton(type: .system)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("Apply", for: .normal)
+        b.setTitleColor(.white, for: .normal)
+        b.backgroundColor = .mainColor
+        b.layer.cornerRadius = 10
+        return b
+    }()
+    
+    let cancelButton : UIButton = {
+        
+        let b = UIButton(type: .system)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("Cancel", for: .normal)
+        b.setTitleColor(.white, for: .normal)
+        b.backgroundColor = .systemRed
+        b.layer.cornerRadius = 10
+        return b
+    }()
     
     let effectBackground: UIVisualEffectView = {
         let e = UIBlurEffect(style: .light)
@@ -70,18 +107,51 @@ class FilterViewController: UIViewController {
         labelSeparator.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         labelSeparator.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
+        
+        view.addSubview(cancelButton)
+        view.addSubview(applyButton)
+        
+        applyButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -16).isActive = true
+        applyButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        applyButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        applyButton.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -8).isActive = true
+        
+        cancelButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -16).isActive = true
+        cancelButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        cancelButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
+        
         view.addSubview(filterOptionstableView)
         filterOptionstableView.topAnchor.constraint(equalTo: labelSeparator.bottomAnchor).isActive = true
         filterOptionstableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        filterOptionstableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        filterOptionstableView.bottomAnchor.constraint(equalTo: applyButton.topAnchor, constant: -8).isActive = true
         filterOptionstableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         
         isFirstAppear = true
         filterOptionstableView.delegate = self
         filterOptionstableView.dataSource = self
         
+        
+        applyButton.addTarget(self, action: #selector(touchApplyButton), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(touchCancelButton), for: .touchUpInside)
+        
+        
     }
     
+    
+    @objc func touchApplyButton() {
+        
+        if let delegate = self.delegate {
+            
+            delegate.filterApplied(filter: filter)
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc func touchCancelButton() {
+        
+        dismiss(animated: true, completion: nil)
+    }
     
     /*
      // MARK: - Navigation
@@ -96,6 +166,16 @@ class FilterViewController: UIViewController {
 }
 
 extension FilterViewController : UITableViewDelegate {
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == 0 {
+            self.present(UINavigationController(rootViewController: genresVC), animated: true, completion: nil)
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
@@ -124,12 +204,52 @@ extension FilterViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "optionCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "optionCell", for: indexPath) as! SubtitleTableViewCell
         cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = filterOptions[indexPath.row]
-        cell.detailTextLabel?.text = "Ninguno"
         cell.detailTextLabel?.textColor = .mainColor
         cell.backgroundColor = .clear
+        cell.detailTextLabel?.numberOfLines = 0
+        switch indexPath.row {
+        case 0: fillCell(cell: cell, title: filterOptions[indexPath.row], data: filter.getGenresNames())
+        case 1: fillCell(cell: cell, title: filterOptions[indexPath.row], data: filter.year?.description)
+        case 2: fillCell(cell: cell, title: filterOptions[indexPath.row], data: filter.rating?.description)
+        default: break
+            
+        }
+
         return cell
+    }
+    
+    func fillCell(cell: SubtitleTableViewCell, title: String, data: String?) {
+        
+        cell.textLabel?.text = title
+        cell.detailTextLabel?.text = data ?? "Empty"
+    }
+}
+
+
+extension FilterViewController : GenresTableViewDelegate {
+    
+    func genresTableSelected(genres: [Genre]) {
+        
+        self.filter.genres = genres
+        self.filterOptionstableView.reloadData()
+    }
+}
+
+
+
+
+
+
+protocol FilterViewControllerDelegate {
+    
+    func filterApplied(filter: MovieDiscoverFilter)
+}
+
+extension FilterViewControllerDelegate {
+    
+    func filterApplied(filter: MovieDiscoverFilter) {
+        
     }
 }

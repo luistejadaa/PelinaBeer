@@ -104,7 +104,7 @@ class Movie : Codable {
             query.append(URLQueryItem(name: "year", value: year.description))
         }
         
-        API.shared.get(path: "discover/movie", queryItems: query) { (response: Result<APIResponse<Movie>, Error>) in
+        API.shared.getWithPagination(path: "discover/movie", queryItems: query) { (response: Result<APIResponse<Movie>, Error>) in
             
             switch response {
                 

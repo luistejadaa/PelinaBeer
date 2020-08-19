@@ -17,6 +17,7 @@ class SubtitleTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+        detailTextLabel?.font = .boldSystemFont(ofSize: 14)
     }
     
     required init?(coder: NSCoder) {

@@ -8,28 +8,53 @@
 
 import Foundation
 
-struct MovieDiscoverFilter {
+class MovieDiscoverFilter {
     
     var pageNumber : Int!
     var rating : Double?
     var year : Int?
-    var genres : [Int]?
+    var genres : [Genre]?
+    
+    
+    init(pageNumber: Int, rating: Double?, year: Int?, genres: [Genre]?) {
+        self.pageNumber = pageNumber
+        self.rating = rating
+        self.year = year
+        self.genres = genres
+    }
     
     func getGenresId() -> String? {
         
         if let genres = self.genres {
             
             var str = ""
-            for s in genres {
+            for g in genres {
                 
-                str.append(contentsOf: "\(s),")
+                str.append(contentsOf: "\(g.id!),")
             }
             
             if str.count >= 2 {
                 
-                str.remove(at: str.endIndex)
+                str.removeLast()
             }
-             
+            
+            return str
+        }
+        
+        return nil
+    }
+    
+    func getGenresNames() -> String? {
+        
+        if let genres = self.genres {
+            
+            var str = ""
+            for g in genres {
+                
+                str.append(contentsOf: "\(String(describing: g.name!)),")
+            }
+            str.removeLast()
+            
             return str
         }
         
