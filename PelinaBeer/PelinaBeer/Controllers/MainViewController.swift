@@ -17,6 +17,7 @@ class MainViewController: UIViewController {
     var filteredMovies = [Movie]()
     var totalPages : Int!
     var totalResults : Int!
+    var favsIsLoading : Bool!
     
     let filterView : FilterView = {
         
@@ -46,10 +47,11 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        movieDiscoverFilter = MovieDiscoverFilter(pageNumber: 0, rating: nil, year: nil, genres: nil)
+        movieDiscoverFilter = MovieDiscoverFilter(pageNumber: 0, rating: 0, year: nil, genres: nil, sortBy: Sort.sorts["popularity"]!)
         totalPages = 0
         totalResults = 0
         view.backgroundColor = .white
+        favsIsLoading = false
         
         configureLargueTitleWith(text: "Pelina Beer")
         
@@ -70,8 +72,18 @@ class MainViewController: UIViewController {
         moviesCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         
         addIRightItem(image: #imageLiteral(resourceName: "sort_icon"), action: #selector(showFilter))
-        addIRightItem(image: #imageLiteral(resourceName: "filterFill_icon"), action: #selector(showFilter))
         
+        Movie.getAllFavorites { (isCompleted) in
+            
+            self.favsIsLoading = isCompleted
+            self.fetchActivityIindicator.startAnimating()
+            self.discoverMovies()
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     @objc func refreshdData() {
@@ -91,42 +103,45 @@ class MainViewController: UIViewController {
     
     @objc func discoverMovies() {
         
-        
-        DispatchQueue.global(qos: .userInitiated).async {
+        if favsIsLoading {
             
-            self.movieDiscoverFilter.pageNumber += 1
-            Movie.discoverMovies(filter: self.movieDiscoverFilter) { (response) in
+            DispatchQueue.global(qos: .userInitiated).async {
                 
-                DispatchQueue.main.async {
-                    self.fetchActivityIindicator.stopAnimating()
-                    self.moviesCollectionView.refreshControl?.endRefreshing()
-                }
-                
-                switch response {
-                case .success(let result):
+                self.movieDiscoverFilter.pageNumber += 1
+                Movie.discoverMovies(filter: self.movieDiscoverFilter) { (response) in
                     
-                    self.totalPages = result.total_pages
-                    self.totalResults = result.total_results
-                    if let movies = result.results {
-                        
-                        //Esto es para generar el efecto de que se cargan una a una
-                        for m in movies {
-                            
-                            self.movies.append(m)
-                            self.moviesCollectionView.insertItems(at: [IndexPath(row: self.movies.count - 1, section: 0)])
-                        }
-                    }
-                case .failure(let error):
-                    
-                    if self.movieDiscoverFilter.pageNumber > 1 {
-                        
-                        self.movieDiscoverFilter.pageNumber -= 1
-                    }
-                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
                     DispatchQueue.main.async {
+                        self.fetchActivityIindicator.stopAnimating()
+                        self.moviesCollectionView.refreshControl?.endRefreshing()
+                    }
+                    
+                    switch response {
+                    case .success(let result):
                         
-                        self.present(alert, animated: true, completion: nil)
+                        self.totalPages = result.total_pages
+                        self.totalResults = result.total_results
+                        if let movies = result.results {
+                            
+                            //Esto es para generar el efecto de que se cargan una a una
+                            for m in movies {
+                                
+                                self.movies.append(m)
+                                if let _ = Movie.favoriteMovies.first(where: {$0.id == m.id}) {m.isFavorite = true} else {m.isFavorite = false}
+                                self.moviesCollectionView.insertItems(at: [IndexPath(row: self.movies.count - 1, section: 0)])
+                            }
+                        }
+                    case .failure(let error):
+                        
+                        if self.movieDiscoverFilter.pageNumber > 1 {
+                            
+                            self.movieDiscoverFilter.pageNumber -= 1
+                        }
+                        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+                        DispatchQueue.main.async {
+                            
+                            self.present(alert, animated: true, completion: nil)
+                        }
                     }
                 }
             }
@@ -150,19 +165,25 @@ extension MainViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        present(MovieDetailViewController(movie: self.movies[indexPath.row]), animated: true, completion: nil)
+        let vc = MovieDetailViewController(movie: self.movies[indexPath.row])
+        vc.dismissMovie = { movie in self.dismissMovie(movie: movie)}
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func dismissMovie(movie: Movie) -> Void {
+        
+        let i = self.movies.firstIndex {$0.id == movie.id}
+        self.moviesCollectionView.reloadItems(at: [IndexPath(row: i!, section: 0)])
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         
         if (elementKind == UICollectionView.elementKindSectionFooter) {
             
-            if !self.moviesCollectionView.refreshControl!.isRefreshing {
+            if !self.moviesCollectionView.refreshControl!.isRefreshing && self.favsIsLoading {
                 self.fetchActivityIindicator.startAnimating()
                 
-                
                 self.discoverMovies()
-                
             }
         }
     }
@@ -206,6 +227,9 @@ extension MainViewController : UICollectionViewDataSource, UICollectionViewDataS
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
         
+        cell.favButton.tag = indexPath.row
+        cell.delegate = self
+        
         if self.movies[indexPath.row].thumbailImage == nil {
             
             cell.activityIindicator.startAnimating()
@@ -218,6 +242,7 @@ extension MainViewController : UICollectionViewDataSource, UICollectionViewDataS
             setThumbnailToCell(cell: cell, indexPath: indexPath)
         }
         
+        cell.favButton.tintColor = self.movies[indexPath.row].isFavorite ? .red : .lightGray
         return cell
     }
     
@@ -237,6 +262,40 @@ extension MainViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: 8, left: 13, bottom: 8, right: 13)
+    }
+}
+
+extension MainViewController : MovieCollectionViewCellDelegate {
+    
+    func favButtonTouched(row: Int) {
+        
+        let cell = self.moviesCollectionView.cellForItem(at: IndexPath(row: row, section: 0)) as! MovieCollectionViewCell
+        cell.activityIindicator.startAnimating()
+        
+        if !self.movies[row].isFavorite {
+            
+            self.movies[row].addToFavorite { (isAdded) in
+                cell.activityIindicator.stopAnimating()
+                
+                if isAdded {
+                    
+                    self.movies[row].isFavorite = true
+                    self.moviesCollectionView.reloadItems(at: [IndexPath(row: row, section: 0)])
+                }
+            }
+        } else {
+            
+                self.movies[row].removeFromFavorite { (isRemoved) in
+                    
+                cell.activityIindicator.stopAnimating()
+                    
+                    if isRemoved {
+                        
+                        self.movies[row].isFavorite = false
+                        self.moviesCollectionView.reloadItems(at: [IndexPath(row: row, section: 0)])
+                    }
+            }
+        }
     }
 }
 

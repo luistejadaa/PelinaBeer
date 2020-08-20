@@ -12,6 +12,8 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     
     
+    var delegate : MovieCollectionViewCellDelegate?
+    
     @objc dynamic var movieImageView: UIImageView = {
         let i = UIImageView(frame: .zero)
         i.translatesAutoresizingMaskIntoConstraints = false
@@ -28,10 +30,14 @@ class MovieCollectionViewCell: UICollectionViewCell {
         return a
     }()
     
-    let titleLabel : UILabel = {
-        let l = UILabel(frame: .zero)
-        l.translatesAutoresizingMaskIntoConstraints = false
-        return l
+    
+    let favButton : UIButton = {
+       
+        let b = UIButton(type: .system)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setImage(UIImage(named: "fav_icon")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        b.tintColor = .gray
+        return b
     }()
     
     
@@ -53,7 +59,8 @@ class MovieCollectionViewCell: UICollectionViewCell {
         
         addSubview(movieImageView)
         addSubview(activityIindicator)
-        addSubview(titleLabel)
+        addSubview(favButton)
+        favButton.addTarget(self, action: #selector(favButtonTouched), for: .touchUpInside)
         
         movieImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         movieImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
@@ -63,12 +70,32 @@ class MovieCollectionViewCell: UICollectionViewCell {
         activityIindicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         activityIindicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
+        favButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
+        favButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
+        
         movieImageView.addObserver(self, forKeyPath: "image", options: .new, context: nil)
         
+    }
+    
+    @objc func favButtonTouched(_ sender : UIButton) {
+        
+        delegate?.favButtonTouched(row: Int(sender.tag))
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         activityIindicator.stopAnimating()
+    }
+}
+
+
+protocol MovieCollectionViewCellDelegate {
+    
+    func favButtonTouched(row: Int)
+}
+extension MovieCollectionViewCellDelegate {
+    
+    func favButtonTouched(row: Int) {
+        
     }
 }

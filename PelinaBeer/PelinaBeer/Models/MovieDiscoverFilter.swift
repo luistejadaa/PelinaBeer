@@ -11,16 +11,18 @@ import Foundation
 class MovieDiscoverFilter {
     
     var pageNumber : Int!
-    var rating : Double?
+    var rating : Double!
     var year : Int?
     var genres : [Genre]?
+    var sort_by : Sort!
     
     
-    init(pageNumber: Int, rating: Double?, year: Int?, genres: [Genre]?) {
+    init(pageNumber: Int, rating: Double?, year: Int?, genres: [Genre]?, sortBy: Sort) {
         self.pageNumber = pageNumber
         self.rating = rating
         self.year = year
         self.genres = genres
+        self.sort_by = sortBy
     }
     
     func getGenresId() -> String? {

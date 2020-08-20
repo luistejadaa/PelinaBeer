@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit.UIImage
+import FirebaseFirestore
 
 class Movie : Codable {
     
@@ -28,6 +29,7 @@ class Movie : Codable {
     
     var thumbailImage : UIImage?
     var fullSizeImage : UIImage?
+    var isFavorite : Bool = false
     
     private enum CodingKeys : String, CodingKey {
         
@@ -47,9 +49,78 @@ class Movie : Codable {
         case release_date
     }
     
-    
     let thumbnailImageSize = "w200"
     let fullImageSize = "w500"
+    
+    static var favoriteMovies = [Movie]()
+    
+    
+    static func getAllFavorites(completion: @escaping (Bool) -> Void) {
+        
+        let db = Firestore.firestore()
+        let decoder = JSONDecoder()
+        
+        db.collection("Favs").getDocuments { (snapshot, error) in
+            
+            if error == nil {
+                
+                for d in snapshot!.documents {
+                    
+                    let data = try! JSONSerialization.data(withJSONObject: d.data(), options: .prettyPrinted)
+                    let m = try! decoder.decode(Self.self, from: data)
+                    
+                    if Movie.favoriteMovies.first(where: {$0.id == m.id}) == nil {
+                        
+                        Movie.favoriteMovies.append(m)
+                    }
+                }
+                
+                completion(true)
+            } else {
+                
+                completion(false)
+            }
+        }
+    }
+    
+    func addToFavorite(completion: @escaping (Bool) -> Void) {
+        
+        let db = Firestore.firestore()
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        
+        guard let data = try? encoder.encode(self) else {completion(false); return}
+        guard let dic = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:AnyObject] else {completion(false); return}
+        db.collection("Favs").document(id.description).setData(dic) { (error) in
+            
+            if error == nil {
+                
+                Movie.favoriteMovies.append(self)
+                completion(true)
+                
+            } else {
+                
+                completion(false)
+            }
+        }
+    }
+    
+    func removeFromFavorite(completion: @escaping (Bool) -> Void) {
+        
+        let db = Firestore.firestore()
+        db.collection("Favs").document(id.description).delete { (error) in
+            
+            if error == nil {
+                
+                Movie.favoriteMovies.removeAll {$0.id == self.id}
+                completion(true)
+                
+            } else {
+                
+                completion(false)
+            }
+        }
+    }
     
     func getThumnailImage(completion: (() -> Void)?) {
         
@@ -67,29 +138,30 @@ class Movie : Codable {
     func getFullSizeImage(completion: (() -> Void)?) {
         
         if let backdrop_path = backdrop_path {
-        
+            
             getImage(path: "\(fullImageSize)/\(backdrop_path)") { image in
-                    
+                
                 self.fullSizeImage = image
-                    completion?()
+                completion?()
                 
             }
         }
     }
     
     fileprivate func getImage(path: String, completion: @escaping ((UIImage) -> Void)) {
+        
+        API.shared.getImage(imagePath: path) { (image) in
             
-            API.shared.getImage(imagePath: path) { (image) in
-                
-                completion(image)
-            }
+            completion(image)
         }
+    }
     
     static func discoverMovies(filter: MovieDiscoverFilter, completion: @escaping (Result<APIResponse<Movie>, Error>) -> Void) {
         
         var query = [URLQueryItem]()
         
         query.append(URLQueryItem(name: "page", value: filter.pageNumber.description))
+        query.append(URLQueryItem(name: "sort_by", value: filter.sort_by.val))
         
         if let rating = filter.rating {
             

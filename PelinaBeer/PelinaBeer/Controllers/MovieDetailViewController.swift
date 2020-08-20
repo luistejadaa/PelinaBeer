@@ -10,9 +10,18 @@ import UIKit
 
 class MovieDetailViewController: UIViewController {
     
-    
+    var dismissMovie : ((Movie) -> Void)?
     let movie : Movie!
     var data : [(description: String, data: String)]!
+    
+    let favButton : UIButton = {
+       
+        let b = UIButton(type: .system)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setImage(UIImage(named: "fav_icon")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        b.tintColor = .gray
+        return b
+    }()
     
     let detailTableView : UITableView = {
        
@@ -78,6 +87,7 @@ class MovieDetailViewController: UIViewController {
         view.addSubview(detailTableView)
         imageViewContainer.addSubview(movieImageView)
         imageViewContainer.addSubview(activityIindicator)
+        imageViewContainer.addSubview(favButton)
         
         imageViewContainer.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         imageViewContainer.heightAnchor.constraint(equalToConstant: view.frame.height / 2.5).isActive = true
@@ -96,6 +106,30 @@ class MovieDetailViewController: UIViewController {
         detailTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         detailTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         detailTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        favButton.bottomAnchor.constraint(equalTo: imageViewContainer.bottomAnchor, constant: -8).isActive = true
+        favButton.trailingAnchor.constraint(equalTo: imageViewContainer.trailingAnchor, constant: -8).isActive = true
+        
+        refreshButton()
+        favButton.addTarget(self, action: #selector(favButtonTouched), for: .touchUpInside)
+    }
+    
+    func  refreshButton() {
+        
+        favButton.tintColor = self.movie.isFavorite ? .red : .lightGray
+    }
+    @objc func favButtonTouched(_ sender : UIButton) {
+        
+        self.activityIindicator.startAnimating()
+        self.movie.addToFavorite { (isAdded) in
+            
+            DispatchQueue.main.async {
+                
+                self.activityIindicator.stopAnimating()
+            }
+            self.movie.isFavorite = isAdded
+            self.refreshButton()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,6 +144,11 @@ class MovieDetailViewController: UIViewController {
                 self.activityIindicator.stopAnimating()
             }
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        dismissMovie?(self.movie)
     }
 }
 

@@ -17,6 +17,7 @@ class FilterViewController: UIViewController {
     fileprivate let filterOptions = ["Genres", "Year", "Rating"]
     fileprivate var isFirstAppear : Bool!
     
+    let sections = ["Filter by", "Order by"]
     var filter : MovieDiscoverFilter!
     var delegate : FilterViewControllerDelegate?
     var genresVC : GenresTableViewController!
@@ -54,13 +55,6 @@ class FilterViewController: UIViewController {
         return b
     }()
     
-    let effectBackground: UIVisualEffectView = {
-        let e = UIBlurEffect(style: .light)
-        let v = UIVisualEffectView(effect: e)
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-    
     let titleLabel: UILabel = {
         let l = UILabel(frame: .zero)
         l.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +65,7 @@ class FilterViewController: UIViewController {
     }()
     
     let filterOptionstableView: UITableView = {
-        let t = UITableView(frame: .zero, style: .plain)
+        let t = UITableView(frame: .zero, style: .plain   )
         t.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "optionCell")
         t.translatesAutoresizingMaskIntoConstraints = false
         t.tableFooterView = .init(frame: .zero)
@@ -91,13 +85,7 @@ class FilterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        view.addSubview(effectBackground)
-        effectBackground.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        effectBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        effectBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        effectBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        
+        view.backgroundColor = .white
         view.addSubview(titleLabel)
         titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -139,6 +127,11 @@ class FilterViewController: UIViewController {
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    
     @objc func touchApplyButton() {
         
         if let delegate = self.delegate {
@@ -170,11 +163,17 @@ extension FilterViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if (indexPath.section == 1) {
+            
+            let vc = SortTableViewController(filter: filter)
+            vc.delegate = self
+            self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+        }
         
         switch indexPath.row {
         case 0: self.present(UINavigationController(rootViewController: genresVC), animated: true, completion: nil)
         case 1: self.selectYear()
-        case 2: break
+        case 2: self.selectRating()
         default: break
             
         }
@@ -190,7 +189,7 @@ extension FilterViewController : UITableViewDelegate {
             }, completion: nil)
         }
         
-        if(indexPath.row == filterOptions.count - 1) {
+        if(indexPath.section == 1) {
             
             isFirstAppear = false
         }
@@ -200,7 +199,7 @@ extension FilterViewController : UITableViewDelegate {
         
         let message = "\n\n\n\n\n\n"
         let alert = UIAlertController(title: "Select a year", message: message, preferredStyle: .alert)
-         
+        
         let picker = UIPickerView(frame: .zero)
         picker.translatesAutoresizingMaskIntoConstraints = false
         picker.delegate = self
@@ -213,7 +212,7 @@ extension FilterViewController : UITableViewDelegate {
         
         
         alert.addAction(UIAlertAction(title: "Select", style: .default, handler: {
-         (alert: UIAlertAction!) -> Void in
+            (alert: UIAlertAction!) -> Void in
             
             let selected = picker.selectedRow(inComponent: 0)
             self.filter.year = selected + 1960
@@ -221,6 +220,44 @@ extension FilterViewController : UITableViewDelegate {
         }))
         alert.addAction( UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func selectRating() {
+        
+        let alert = UIAlertController(title: "Ratin Greater than", message: self.filter.rating.description, preferredStyle: .alert)
+        
+        let stepper = UIStepper(frame: .zero)
+        
+        stepper.value = self.filter.rating
+        
+        stepper.minimumValue = 0
+        stepper.stepValue = 0.5
+        stepper.addTarget(self, action: #selector(stepperChanged), for: .valueChanged)
+        stepper.translatesAutoresizingMaskIntoConstraints = false
+        
+        alert.view.addSubview(stepper)
+        
+        alert.view.heightAnchor.constraint(equalToConstant: 180).isActive = true
+        stepper.centerYAnchor.constraint(equalTo: alert.view.centerYAnchor).isActive = true
+        stepper.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor).isActive = true
+        
+        
+        alert.addAction(UIAlertAction(title: "Select", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+            self.filter.rating = stepper.value
+            self.filterOptionstableView.reloadData()
+        }))
+        alert.addAction( UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func stepperChanged(_ sender: UIStepper) {
+        
+        if let alert = self.presentedViewController as? UIAlertController {
+            
+            alert.message = sender.value.description
+        }
     }
 }
 
@@ -239,16 +276,20 @@ extension FilterViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         (1960 + row).description
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        sections[section]
+    }
 }
 
 extension FilterViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        1
+        2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        filterOptions.count
+        section == 0 ? filterOptions.count : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -257,14 +298,22 @@ extension FilterViewController : UITableViewDataSource {
         cell.detailTextLabel?.textColor = .mainColor
         cell.backgroundColor = .clear
         cell.detailTextLabel?.numberOfLines = 0
-        switch indexPath.row {
-        case 0: fillCell(cell: cell, title: filterOptions[indexPath.row], data: filter.getGenresNames())
-        case 1: fillCell(cell: cell, title: filterOptions[indexPath.row], data: filter.year?.description)
-        case 2: fillCell(cell: cell, title: filterOptions[indexPath.row], data: filter.rating?.description)
-        default: break
+        
+        if(indexPath.section == 0) {
             
+            switch indexPath.row {
+                
+            case 0: fillCell(cell: cell, title: filterOptions[indexPath.row], data: filter.getGenresNames())
+            case 1: fillCell(cell: cell, title: filterOptions[indexPath.row], data: filter.year?.description)
+            case 2: fillCell(cell: cell, title: filterOptions[indexPath.row], data: filter.rating?.description)
+            default: break
+            }
+        } else if(indexPath.section == 1) {
+            
+            cell.textLabel?.text = filter.sort_by.description
         }
-
+        
+        
         return cell
     }
     
@@ -286,7 +335,12 @@ extension FilterViewController : GenresTableViewDelegate {
 }
 
 
-
+extension FilterViewController : SortTableViewDelegate {
+    
+    func sortChanged(sort: Sort) {
+        self.filterOptionstableView.reloadData()
+    }
+}
 
 
 

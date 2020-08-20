@@ -25,14 +25,19 @@
 		89347C6024E6CD1F0053AC1E /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5F24E6CD1F0053AC1E /* FilterViewController.swift */; };
 		89347C6224E6E9220053AC1E /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6124E6E9220053AC1E /* SubtitleTableViewCell.swift */; };
 		89347C6424E6E9A00053AC1E /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6324E6E9A00053AC1E /* UIColor.swift */; };
-		89347C6724E6EB9D0053AC1E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 89347C6624E6EB9D0053AC1E /* Alamofire */; };
+		89347C6724E6EB9D0053AC1E /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 89347C6624E6EB9D0053AC1E /* SwiftPackageProductDependency */; };
 		89347C6A24E6EEE70053AC1E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6924E6EEE70053AC1E /* API.swift */; };
 		89347C6C24E719060053AC1E /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6B24E719060053AC1E /* APIResponse.swift */; };
 		89347C6E24E772800053AC1E /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6D24E772800053AC1E /* MovieCollectionViewCell.swift */; };
-		89347C7124E7809A0053AC1E /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 89347C7024E7809A0053AC1E /* AlamofireImage */; };
+		89347C7124E7809A0053AC1E /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 89347C7024E7809A0053AC1E /* SwiftPackageProductDependency */; };
 		89611A5E24ECC0CA00818E3D /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89611A5D24ECC0CA00818E3D /* Genre.swift */; };
 		89611A6024ECC54900818E3D /* GenresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89611A5F24ECC54900818E3D /* GenresTableViewController.swift */; };
+		89611A6224ED9D4200818E3D /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89611A6124ED9D4200818E3D /* Sort.swift */; };
+		89611A6424EDAC6800818E3D /* SortTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89611A6324EDAC6800818E3D /* SortTableViewController.swift */; };
+		8993879824EE9F93005FAE5F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8993879724EE9F93005FAE5F /* GoogleService-Info.plist */; };
 		89D2DE8E24EC014B008FDAFF /* MovieDiscoverFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D2DE8D24EC014B008FDAFF /* MovieDiscoverFilter.swift */; };
+		9F4807E1B32356808353BA8F /* Pods_PelinaBeerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D622EB54222351B2F545AEFA /* Pods_PelinaBeerTests.framework */; };
+		D574BE6392015B47BB762EB7 /* Pods_PelinaBeer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AADE0E386700F5A8B07D59B /* Pods_PelinaBeer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +51,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F3537D4E1EADEC159DF69C6 /* Pods-PelinaBeerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PelinaBeerTests.debug.xcconfig"; path = "Target Support Files/Pods-PelinaBeerTests/Pods-PelinaBeerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1B9E3901B70E3E640A62A0EC /* Pods-PelinaBeerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PelinaBeerTests.release.xcconfig"; path = "Target Support Files/Pods-PelinaBeerTests/Pods-PelinaBeerTests.release.xcconfig"; sourceTree = "<group>"; };
+		3AADE0E386700F5A8B07D59B /* Pods_PelinaBeer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PelinaBeer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		75AF18774E371C1245665942 /* Pods-PelinaBeer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PelinaBeer.debug.xcconfig"; path = "Target Support Files/Pods-PelinaBeer/Pods-PelinaBeer.debug.xcconfig"; sourceTree = "<group>"; };
 		89347C1F24E606420053AC1E /* PelinaBeer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PelinaBeer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89347C2224E606420053AC1E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89347C2424E606420053AC1E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,7 +82,12 @@
 		89347C6D24E772800053AC1E /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		89611A5D24ECC0CA00818E3D /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		89611A5F24ECC54900818E3D /* GenresTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresTableViewController.swift; sourceTree = "<group>"; };
+		89611A6124ED9D4200818E3D /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
+		89611A6324EDAC6800818E3D /* SortTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortTableViewController.swift; sourceTree = "<group>"; };
+		8993879724EE9F93005FAE5F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		89D2DE8D24EC014B008FDAFF /* MovieDiscoverFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDiscoverFilter.swift; sourceTree = "<group>"; };
+		D622EB54222351B2F545AEFA /* Pods_PelinaBeerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PelinaBeerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF4620CDCE18DA6CCD6DAD69 /* Pods-PelinaBeer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PelinaBeer.release.xcconfig"; path = "Target Support Files/Pods-PelinaBeer/Pods-PelinaBeer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +95,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89347C6724E6EB9D0053AC1E /* Alamofire in Frameworks */,
-				89347C7124E7809A0053AC1E /* AlamofireImage in Frameworks */,
+				89347C6724E6EB9D0053AC1E /* BuildFile in Frameworks */,
+				89347C7124E7809A0053AC1E /* BuildFile in Frameworks */,
+				D574BE6392015B47BB762EB7 /* Pods_PelinaBeer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,18 +105,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F4807E1B32356808353BA8F /* Pods_PelinaBeerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A98161C251580D675BBF110 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3AADE0E386700F5A8B07D59B /* Pods_PelinaBeer.framework */,
+				D622EB54222351B2F545AEFA /* Pods_PelinaBeerTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		89347C1624E606420053AC1E = {
 			isa = PBXGroup;
 			children = (
 				89347C2124E606420053AC1E /* PelinaBeer */,
 				89347C3B24E606430053AC1E /* PelinaBeerTests */,
 				89347C2024E606420053AC1E /* Products */,
+				B1B4F7C1ED94C8DEC40F3F08 /* Pods */,
+				2A98161C251580D675BBF110 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,6 +144,7 @@
 		89347C2124E606420053AC1E /* PelinaBeer */ = {
 			isa = PBXGroup;
 			children = (
+				8993879724EE9F93005FAE5F /* GoogleService-Info.plist */,
 				89347C6824E6EE900053AC1E /* API */,
 				89347C5424E61E780053AC1E /* Extensions */,
 				89347C4924E60B100053AC1E /* Controllers */,
@@ -147,6 +175,7 @@
 				89347C4C24E60CA10053AC1E /* User.swift */,
 				89D2DE8D24EC014B008FDAFF /* MovieDiscoverFilter.swift */,
 				89611A5D24ECC0CA00818E3D /* Genre.swift */,
+				89611A6124ED9D4200818E3D /* Sort.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -171,6 +200,7 @@
 				89347C5724E6203E0053AC1E /* MovieDetailViewController.swift */,
 				89347C5F24E6CD1F0053AC1E /* FilterViewController.swift */,
 				89611A5F24ECC54900818E3D /* GenresTableViewController.swift */,
+				89611A6324EDAC6800818E3D /* SortTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -194,6 +224,18 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		B1B4F7C1ED94C8DEC40F3F08 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				75AF18774E371C1245665942 /* Pods-PelinaBeer.debug.xcconfig */,
+				DF4620CDCE18DA6CCD6DAD69 /* Pods-PelinaBeer.release.xcconfig */,
+				0F3537D4E1EADEC159DF69C6 /* Pods-PelinaBeerTests.debug.xcconfig */,
+				1B9E3901B70E3E640A62A0EC /* Pods-PelinaBeerTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -201,9 +243,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89347C4124E606430053AC1E /* Build configuration list for PBXNativeTarget "PelinaBeer" */;
 			buildPhases = (
+				BC7F1BE368D4D3C0ECF20FBC /* [CP] Check Pods Manifest.lock */,
 				89347C1B24E606420053AC1E /* Sources */,
 				89347C1C24E606420053AC1E /* Frameworks */,
 				89347C1D24E606420053AC1E /* Resources */,
+				26266AD95994F3E91B062774 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -211,8 +255,8 @@
 			);
 			name = PelinaBeer;
 			packageProductDependencies = (
-				89347C6624E6EB9D0053AC1E /* Alamofire */,
-				89347C7024E7809A0053AC1E /* AlamofireImage */,
+				89347C6624E6EB9D0053AC1E /* SwiftPackageProductDependency */,
+				89347C7024E7809A0053AC1E /* SwiftPackageProductDependency */,
 			);
 			productName = PelinaBeer;
 			productReference = 89347C1F24E606420053AC1E /* PelinaBeer.app */;
@@ -222,6 +266,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89347C4424E606430053AC1E /* Build configuration list for PBXNativeTarget "PelinaBeerTests" */;
 			buildPhases = (
+				E535D2504A52AB82EBBE2BA0 /* [CP] Check Pods Manifest.lock */,
 				89347C3424E606430053AC1E /* Sources */,
 				89347C3524E606430053AC1E /* Frameworks */,
 				89347C3624E606430053AC1E /* Resources */,
@@ -265,8 +310,8 @@
 			);
 			mainGroup = 89347C1624E606420053AC1E;
 			packageReferences = (
-				89347C6524E6EB9D0053AC1E /* XCRemoteSwiftPackageReference "Alamofire" */,
-				89347C6F24E7809A0053AC1E /* XCRemoteSwiftPackageReference "AlamofireImage" */,
+				89347C6524E6EB9D0053AC1E /* RemoteSwiftPackageReference */,
+				89347C6F24E7809A0053AC1E /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 89347C2024E606420053AC1E /* Products */;
 			projectDirPath = "";
@@ -284,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89347C3224E606430053AC1E /* LaunchScreen.storyboard in Resources */,
+				8993879824EE9F93005FAE5F /* GoogleService-Info.plist in Resources */,
 				89347C2F24E606430053AC1E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +343,70 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		26266AD95994F3E91B062774 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PelinaBeer/Pods-PelinaBeer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PelinaBeer/Pods-PelinaBeer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PelinaBeer/Pods-PelinaBeer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC7F1BE368D4D3C0ECF20FBC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PelinaBeer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E535D2504A52AB82EBBE2BA0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PelinaBeerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		89347C1B24E606420053AC1E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -309,7 +419,9 @@
 				89D2DE8E24EC014B008FDAFF /* MovieDiscoverFilter.swift in Sources */,
 				89611A6024ECC54900818E3D /* GenresTableViewController.swift in Sources */,
 				89347C6424E6E9A00053AC1E /* UIColor.swift in Sources */,
+				89611A6224ED9D4200818E3D /* Sort.swift in Sources */,
 				89347C5124E615A30053AC1E /* RootTabController.swift in Sources */,
+				89611A6424EDAC6800818E3D /* SortTableViewController.swift in Sources */,
 				89347C5624E61EBF0053AC1E /* UIViewController.swift in Sources */,
 				89347C5324E616B50053AC1E /* FavoritesViewController.swift in Sources */,
 				89347C6C24E719060053AC1E /* APIResponse.swift in Sources */,
@@ -472,6 +584,7 @@
 		};
 		89347C4224E606430053AC1E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75AF18774E371C1245665942 /* Pods-PelinaBeer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -491,6 +604,7 @@
 		};
 		89347C4324E606430053AC1E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF4620CDCE18DA6CCD6DAD69 /* Pods-PelinaBeer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -510,6 +624,7 @@
 		};
 		89347C4524E606430053AC1E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F3537D4E1EADEC159DF69C6 /* Pods-PelinaBeerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -532,6 +647,7 @@
 		};
 		89347C4624E606430053AC1E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B9E3901B70E3E640A62A0EC /* Pods-PelinaBeerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -585,7 +701,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		89347C6524E6EB9D0053AC1E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		89347C6524E6EB9D0053AC1E /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -593,7 +709,7 @@
 				minimumVersion = 5.2.2;
 			};
 		};
-		89347C6F24E7809A0053AC1E /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+		89347C6F24E7809A0053AC1E /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
 			requirement = {
@@ -604,14 +720,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		89347C6624E6EB9D0053AC1E /* Alamofire */ = {
+		89347C6624E6EB9D0053AC1E /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 89347C6524E6EB9D0053AC1E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 89347C6524E6EB9D0053AC1E /* RemoteSwiftPackageReference */;
 			productName = Alamofire;
 		};
-		89347C7024E7809A0053AC1E /* AlamofireImage */ = {
+		89347C7024E7809A0053AC1E /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 89347C6F24E7809A0053AC1E /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			package = 89347C6F24E7809A0053AC1E /* RemoteSwiftPackageReference */;
 			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
