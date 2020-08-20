@@ -14,7 +14,6 @@ class MainViewController: UIViewController {
     
     var movieDiscoverFilter : MovieDiscoverFilter!
     var movies = [Movie]()
-    var filteredMovies = [Movie]()
     var totalPages : Int!
     var totalResults : Int!
     var favsIsLoading : Bool!
@@ -126,7 +125,7 @@ class MainViewController: UIViewController {
                             for m in movies {
                                 
                                 self.movies.append(m)
-                                if let _ = Movie.favoriteMovies.first(where: {$0.id == m.id}) {m.isFavorite = true} else {m.isFavorite = false}
+                                if let _ = Movie.favoriteMovies, let _ = Movie.favoriteMovies?.first(where: {$0.id == m.id}) {m.isFavorite = true} else {m.isFavorite = false}
                                 self.moviesCollectionView.insertItems(at: [IndexPath(row: self.movies.count - 1, section: 0)])
                             }
                         }

@@ -37,23 +37,22 @@ class FilterViewController: UIViewController {
         
         let b = UIButton(type: .system)
         b.translatesAutoresizingMaskIntoConstraints = false
-        b.setTitle("Apply", for: .normal)
+        b.setTitle("Close", for: .normal)
         b.setTitleColor(.white, for: .normal)
         b.backgroundColor = .mainColor
         b.layer.cornerRadius = 10
         return b
     }()
     
-    let cancelButton : UIButton = {
-        
-        let b = UIButton(type: .system)
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.setTitle("Cancel", for: .normal)
-        b.setTitleColor(.white, for: .normal)
-        b.backgroundColor = .systemRed
-        b.layer.cornerRadius = 10
-        return b
-    }()
+    let clearButton : UIButton = {
+         
+         let b = UIButton(type: .system)
+         b.translatesAutoresizingMaskIntoConstraints = false
+         b.setTitle("Clear", for: .normal)
+         b.setTitleColor(.mainColor, for: .normal)
+         b.layer.cornerRadius = 10
+         return b
+     }()
     
     let titleLabel: UILabel = {
         let l = UILabel(frame: .zero)
@@ -95,19 +94,16 @@ class FilterViewController: UIViewController {
         labelSeparator.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         labelSeparator.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        
-        view.addSubview(cancelButton)
         view.addSubview(applyButton)
+        view.addSubview(clearButton)
         
         applyButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -16).isActive = true
         applyButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         applyButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        applyButton.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -8).isActive = true
+        applyButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
         
-        cancelButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -16).isActive = true
-        cancelButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        cancelButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
+        clearButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
+        clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8).isActive = true
         
         view.addSubview(filterOptionstableView)
         filterOptionstableView.topAnchor.constraint(equalTo: labelSeparator.bottomAnchor).isActive = true
@@ -120,9 +116,8 @@ class FilterViewController: UIViewController {
         filterOptionstableView.dataSource = self
         
         
-        applyButton.addTarget(self, action: #selector(touchApplyButton), for: .touchUpInside)
-        cancelButton.addTarget(self, action: #selector(touchCancelButton), for: .touchUpInside)
-        
+        applyButton.addTarget(self, action: #selector(touchCloseButton), for: .touchUpInside)
+        clearButton.addTarget(self, action: #selector(touchClearButton), for: .touchUpInside)
         
     }
     
@@ -132,7 +127,7 @@ class FilterViewController: UIViewController {
     }
     
     
-    @objc func touchApplyButton() {
+    @objc func touchCloseButton() {
         
         if let delegate = self.delegate {
             
@@ -141,9 +136,15 @@ class FilterViewController: UIViewController {
         }
     }
     
-    @objc func touchCancelButton() {
+    @objc func touchClearButton() {
         
-        dismiss(animated: true, completion: nil)
+        filter.genres = nil
+        filter.pageNumber = 0
+        filter.rating = 0
+        filter.year = nil
+        filter.sort_by = Sort.sorts["popularity"]
+        
+        self.filterOptionstableView.reloadData()
     }
     
     /*

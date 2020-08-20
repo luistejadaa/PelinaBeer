@@ -67,7 +67,7 @@ class MovieDetailViewController: UIViewController {
     init(movie: Movie) {
         
         self.movie = movie
-        data = [("Title", movie.title), ("Overview", movie.overview), ("Qualification", movie.vote_average.description), ("Popularity", String(format: "%.2f", movie.popularity!))]
+        data = [("Title", movie.title), ("Release date", movie.release_date), ("Overview", movie.overview), ("Qualification", movie.vote_average.description), ("Popularity", String(format: "%.2f", movie.popularity!))]
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -114,21 +114,36 @@ class MovieDetailViewController: UIViewController {
         favButton.addTarget(self, action: #selector(favButtonTouched), for: .touchUpInside)
     }
     
-    func  refreshButton() {
+    func refreshButton() {
         
         favButton.tintColor = self.movie.isFavorite ? .red : .lightGray
     }
     @objc func favButtonTouched(_ sender : UIButton) {
         
         self.activityIindicator.startAnimating()
-        self.movie.addToFavorite { (isAdded) in
+        
+        if !self.movie.isFavorite {
             
-            DispatchQueue.main.async {
+            self.movie.addToFavorite { (isAdded) in
                 
-                self.activityIindicator.stopAnimating()
+                DispatchQueue.main.async {
+                    
+                    self.activityIindicator.stopAnimating()
+                }
+                self.movie.isFavorite = true
+                self.refreshButton()
             }
-            self.movie.isFavorite = isAdded
-            self.refreshButton()
+        } else {
+            
+            self.movie.removeFromFavorite { (isRemoved) in
+                
+                DispatchQueue.main.async {
+                    
+                    self.activityIindicator.stopAnimating()
+                }
+                self.movie.isFavorite = false
+                self.refreshButton()
+            }
         }
     }
     
