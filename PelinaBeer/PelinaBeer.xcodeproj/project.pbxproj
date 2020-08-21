@@ -25,17 +25,17 @@
 		89347C6024E6CD1F0053AC1E /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C5F24E6CD1F0053AC1E /* FilterViewController.swift */; };
 		89347C6224E6E9220053AC1E /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6124E6E9220053AC1E /* SubtitleTableViewCell.swift */; };
 		89347C6424E6E9A00053AC1E /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6324E6E9A00053AC1E /* UIColor.swift */; };
-		89347C6724E6EB9D0053AC1E /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 89347C6624E6EB9D0053AC1E /* SwiftPackageProductDependency */; };
 		89347C6A24E6EEE70053AC1E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6924E6EEE70053AC1E /* API.swift */; };
 		89347C6C24E719060053AC1E /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6B24E719060053AC1E /* APIResponse.swift */; };
 		89347C6E24E772800053AC1E /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89347C6D24E772800053AC1E /* MovieCollectionViewCell.swift */; };
-		89347C7124E7809A0053AC1E /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 89347C7024E7809A0053AC1E /* SwiftPackageProductDependency */; };
 		89611A5E24ECC0CA00818E3D /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89611A5D24ECC0CA00818E3D /* Genre.swift */; };
 		89611A6024ECC54900818E3D /* GenresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89611A5F24ECC54900818E3D /* GenresTableViewController.swift */; };
 		89611A6224ED9D4200818E3D /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89611A6124ED9D4200818E3D /* Sort.swift */; };
 		89611A6424EDAC6800818E3D /* SortTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89611A6324EDAC6800818E3D /* SortTableViewController.swift */; };
 		8993879824EE9F93005FAE5F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8993879724EE9F93005FAE5F /* GoogleService-Info.plist */; };
 		89D2DE8E24EC014B008FDAFF /* MovieDiscoverFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D2DE8D24EC014B008FDAFF /* MovieDiscoverFilter.swift */; };
+		89F5E72724EFEC5A003444FE /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 89F5E72624EFEC5A003444FE /* Alamofire */; };
+		89F5E72A24EFEC83003444FE /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 89F5E72924EFEC83003444FE /* AlamofireImage */; };
 		9F4807E1B32356808353BA8F /* Pods_PelinaBeerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D622EB54222351B2F545AEFA /* Pods_PelinaBeerTests.framework */; };
 		D574BE6392015B47BB762EB7 /* Pods_PelinaBeer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AADE0E386700F5A8B07D59B /* Pods_PelinaBeer.framework */; };
 /* End PBXBuildFile section */
@@ -95,9 +95,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89347C6724E6EB9D0053AC1E /* BuildFile in Frameworks */,
-				89347C7124E7809A0053AC1E /* BuildFile in Frameworks */,
 				D574BE6392015B47BB762EB7 /* Pods_PelinaBeer.framework in Frameworks */,
+				89F5E72724EFEC5A003444FE /* Alamofire in Frameworks */,
+				89F5E72A24EFEC83003444FE /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +232,6 @@
 				0F3537D4E1EADEC159DF69C6 /* Pods-PelinaBeerTests.debug.xcconfig */,
 				1B9E3901B70E3E640A62A0EC /* Pods-PelinaBeerTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -255,8 +254,8 @@
 			);
 			name = PelinaBeer;
 			packageProductDependencies = (
-				89347C6624E6EB9D0053AC1E /* SwiftPackageProductDependency */,
-				89347C7024E7809A0053AC1E /* SwiftPackageProductDependency */,
+				89F5E72624EFEC5A003444FE /* Alamofire */,
+				89F5E72924EFEC83003444FE /* AlamofireImage */,
 			);
 			productName = PelinaBeer;
 			productReference = 89347C1F24E606420053AC1E /* PelinaBeer.app */;
@@ -310,8 +309,8 @@
 			);
 			mainGroup = 89347C1624E606420053AC1E;
 			packageReferences = (
-				89347C6524E6EB9D0053AC1E /* RemoteSwiftPackageReference */,
-				89347C6F24E7809A0053AC1E /* RemoteSwiftPackageReference */,
+				89F5E72524EFEC5A003444FE /* XCRemoteSwiftPackageReference "Alamofire" */,
+				89F5E72824EFEC83003444FE /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = 89347C2024E606420053AC1E /* Products */;
 			projectDirPath = "";
@@ -701,7 +700,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		89347C6524E6EB9D0053AC1E /* RemoteSwiftPackageReference */ = {
+		89F5E72524EFEC5A003444FE /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -709,7 +708,7 @@
 				minimumVersion = 5.2.2;
 			};
 		};
-		89347C6F24E7809A0053AC1E /* RemoteSwiftPackageReference */ = {
+		89F5E72824EFEC83003444FE /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
 			requirement = {
@@ -720,14 +719,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		89347C6624E6EB9D0053AC1E /* SwiftPackageProductDependency */ = {
+		89F5E72624EFEC5A003444FE /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 89347C6524E6EB9D0053AC1E /* RemoteSwiftPackageReference */;
+			package = 89F5E72524EFEC5A003444FE /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		89347C7024E7809A0053AC1E /* SwiftPackageProductDependency */ = {
+		89F5E72924EFEC83003444FE /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 89347C6F24E7809A0053AC1E /* RemoteSwiftPackageReference */;
+			package = 89F5E72824EFEC83003444FE /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */

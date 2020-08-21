@@ -211,7 +211,9 @@ extension FavoritesViewController : MovieCollectionViewCellDelegate {
             
             if isRemoved {
                 
+                self.moviesFiltered?.remove(at: row)
                 self.moviesCollectionView.deleteItems(at: [IndexPath(row: row, section: 0)])
+                self.moviesCollectionView.reloadItems(at: self.moviesCollectionView.indexPathsForVisibleItems)
             }
         }
     }
@@ -272,12 +274,6 @@ extension FavoritesViewController : FilterViewControllerDelegate {
                 default: return true
             }
         })
-        
-        print("\n\n")
-        for m in self.moviesFiltered! {
-            
-            print(m.description)
-        }
         
         DispatchQueue.main.async {
             self.moviesCollectionView.reloadData()
